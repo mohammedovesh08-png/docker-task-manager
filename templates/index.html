@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 650px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f6f8;
+        }
+        h1 { color: #1f2937; }
+        form { display: flex; gap: 10px; margin-bottom: 20px; }
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #2563eb;
+            color: white;
+        }
+        ul { padding: 0; list-style: none; }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        li form { margin: 0; }
+        .delete { background: #dc2626; }
+    </style>
+</head>
+<body>
+    <h1>Task Manager</h1>
+    <p>Add and manage your tasks.</p>
+
+    <form action="/add" method="POST">
+        <input type="text" name="title" placeholder="Enter a task..." required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <span>{{ task.title }}</span>
+            <form action="/delete/{{ task.id }}" method="POST">
+                <button class="delete" type="submit">Delete</button>
+            </form>
+        </li>
+        {% else %}
+        <li>No tasks yet. Add your first task!</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
